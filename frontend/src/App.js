@@ -3,7 +3,8 @@ import "./App.css";
 
 // API base URL (Render backend by default, overridable via env var)
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "https://safelink-ai.onrender.com";
+  process.env.REACT_APP_API_BASE_URL || " https://safelink-ai-1.onrender.com ";
+  
 
 // SVG Icon Definitions (Used for Sidebar and Auth Banners)
 
