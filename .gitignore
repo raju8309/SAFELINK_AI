@@ -1,0 +1,16 @@
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+
+# Node / React
+frontend/node_modules/
+frontend/build/
+
+# macOS
+.DS_Store
+.env
+backend/app/.envbackend/app/safelink.db
+venv/
+node_modules/
