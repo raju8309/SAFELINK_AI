@@ -20,7 +20,7 @@ app = FastAPI(
 origins = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://safelink-ai-frontend.onrender.com"
+    "https://safelink-ai-xa21.onrender.com"
 ]
 
 app.add_middleware(
