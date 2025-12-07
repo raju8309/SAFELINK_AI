@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-// API base URL (local fallback + env override)
+// API base URL (Render backend by default, overridable via env var)
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:8000";
+  process.env.REACT_APP_API_BASE_URL || "https://safelink-ai.onrender.com";
 
 // SVG Icon Definitions (Used for Sidebar and Auth Banners)
 
@@ -99,7 +99,7 @@ function App() {
   const [hospitalsLoading, setHospitalsLoading] = useState(false);
   const [hospitalsError, setHospitalsError] = useState("");
 
-  //  Load user from localStorage on mount
+  // Load user from localStorage on mount
   useEffect(() => {
     const saved = localStorage.getItem("safelink_user");
     if (saved) {
@@ -114,13 +114,13 @@ function App() {
     }
   }, []);
 
-  // Auth handlers 
+  // Auth handlers
   const handleAuthSubmit = (e) => {
     e.preventDefault();
     setAuthError("");
     setAuthLoading(true);
 
-    // --- Mock Authentication Logic ---
+    // Mock Authentication Logic
     setTimeout(() => {
       setAuthLoading(false);
       if (authEmail.length > 5 && authPassword.length >= 6) {
@@ -176,21 +176,23 @@ function App() {
       });
 
       if (!response.ok) {
-        throw new Error("Something went wrong with the API");
+        throw new Error("Something went wrong with the API.");
       }
 
       const data = await response.json();
       setResult(data);
     } catch (err) {
       console.error(err);
-      setError("Failed to get result. Please check if backend is running.");
+      setError(
+        "Failed to get result. Please check your connection or try again shortly."
+      );
       setResult(null);
     } finally {
       setLoading(false);
     }
   };
 
-  //  Chat handler (30s timeout)
+  // Chat handler (30s timeout)
   const handleSendChat = async (e) => {
     e.preventDefault();
     if (!chatInput.trim()) return;
@@ -250,7 +252,7 @@ function App() {
     } catch (err) {
       console.error("Chat fetch error:", err);
       let errorMessage =
-        "Network error. Check if backend is running and reachable.";
+        "Network error. Check if the server is reachable and try again.";
 
       if (err.name === "AbortError") {
         errorMessage =
@@ -265,7 +267,7 @@ function App() {
     }
   };
 
-  // Chat history handler 
+  // Chat history handler
   const handleLoadChatHistory = async () => {
     if (!user?.user_id) {
       setChatHistoryError("Please log in to view your chat history.");
@@ -301,7 +303,7 @@ function App() {
     }
   };
 
-  // Nearby hospitals handler 
+  // Nearby hospitals handler
   const handleFindHospitals = () => {
     setHospitalsError("");
     setHospitalsLoading(true);
@@ -339,7 +341,8 @@ function App() {
         } catch (err) {
           console.error(err);
           setHospitalsError(
-            err.message || "Failed to fetch nearby hospitals. Please try again."
+            err.message ||
+              "Failed to fetch nearby hospitals. Please try again."
           );
         } finally {
           setHospitalsLoading(false);
@@ -358,7 +361,7 @@ function App() {
     ? "Please sign in on the Home page to use this feature."
     : "";
 
-  //  MAIN UI WITH SIDEBAR + HOME AS LANDING
+  // MAIN UI WITH SIDEBAR + HOME AS LANDING
   return (
     <div className="app-shell">
       {/* Sidebar */}
@@ -736,7 +739,7 @@ function App() {
           </main>
         )}
 
-        {/* CHAT PAGE*/}
+        {/* CHAT PAGE */}
         {activeTab === "chat" && (
           <main className="cards-row">
             <section className="card chat-card">
@@ -806,7 +809,7 @@ function App() {
           </main>
         )}
 
-        {/* ================= HOSPITALS PAGE ================= */}
+        {/* HOSPITALS PAGE */}
         {activeTab === "hospitals" && (
           <section className="card hospitals-section">
             <div className="card-header-row">
@@ -874,7 +877,7 @@ function App() {
           </section>
         )}
 
-        {/* ================= HISTORY PAGE ================= */}
+        {/* HISTORY PAGE */}
         {activeTab === "history" && (
           <section className="card history-section">
             <div className="card-header-row">
