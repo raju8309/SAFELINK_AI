@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-
-// API base URL (Render backend by default, overridable via env var)
+// API base URL:
+// - In production (Vercel): use REACT_APP_API_BASE_URL if set, otherwise Render URL
+// - In development (local): default to localhost:8000 unless env overrides
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL ||
-  "https://safelink-ai-epgg.onrender.com";  
+  process.env.NODE_ENV === "production"
+    ? process.env.REACT_APP_API_BASE_URL ||
+      "https://safelink-ai-epgg.onrender.com"
+    : process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:8000";
 
+// TEMP: debug log, remove later
+console.log("🌐 API_BASE_URL in browser:", API_BASE_URL);
 // SVG Icon Definitions (Used for Sidebar and Auth Banners)
 
 const IconHome = () => (
