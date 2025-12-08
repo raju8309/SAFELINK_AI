@@ -23,7 +23,9 @@ ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://safelink-ai.vercel.app",  # your Vercel frontend URL
-    "https://*.vercel.app",            # optional wildcard for preview builds
+    "https://*.vercel.app",
+    "https://safelink-ai-git-main-raju-kotturis-projects.vercel.app", 
+    "https://safelink-2w5pe04j5-raju-kotturis-projects.vercel.app" # optional wildcard for preview builds
 ]
 
 app.add_middleware(
