@@ -4,6 +4,7 @@ from pydantic import BaseModel, EmailStr
 from typing import List, Optional
 from pathlib import Path
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 import sqlite3
 import hashlib
 import httpx
@@ -17,15 +18,17 @@ app = FastAPI(
     version="0.9.0",
 )
 
-# ---------- CORS: LOCALHOST ONLY ----------
-origins = [
+# ---------- CORS ORIGINS ----------
+ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://safelink-ai.vercel.app",  # your Vercel frontend URL
+    "https://*.vercel.app",            # optional wildcard for preview builds
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
